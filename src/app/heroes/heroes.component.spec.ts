@@ -4,7 +4,6 @@ import { HeroesComponent } from "./heroes.component"
 describe('HeroesComponent', () => {
   let component: HeroesComponent;
   let heroes;
-
   let mockHeroService
 
   beforeEach(() => {
@@ -27,6 +26,15 @@ describe('HeroesComponent', () => {
       component.delete(heroes[2]);
 
       expect(component.heroes.length).toBe(2);
+    })
+
+    it('should call deleteHero with correct hero', () => {
+      mockHeroService.deleteHero.and.returnValue(of(true))
+      component.heroes = heroes;
+
+      component.delete(heroes[2]);
+
+      expect(mockHeroService.deleteHero).toHaveBeenCalledWith(heroes[2]);
     })
   })
 })
